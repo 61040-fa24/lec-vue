@@ -1,15 +1,28 @@
 <script setup lang="ts">
-  import {ref} from 'vue';
+  import {ref, defineProps, defineEmits} from 'vue';
 
-  const count = ref(Math.floor(Math.random() * 10));
+  const props = defineProps(['name', 'init']);
+  const emit = defineEmits(['incr', 'decr']);
+
+  const count = ref(props.init || Math.floor(Math.random() * 10));
+
+  function incr() {
+    count.value++;
+    emit('incr', props.name, count.value);
+  }
+
+  function decr() {
+    count.value--;
+    emit('decr', props.name, count.value);
+  }
 </script>
 
 <template>
   <div class="counter">
-    Counter: {{ count }}
+    {{ props.name }}: {{ count }}
 
-    <button v-on:click="count++">Inc</button>
-    <button v-on:click="count--">Dec</button>
+    <button v-on:click="incr">Inc</button>
+    <button v-on:click="decr">Dec</button>
   </div>
 </template>
 
