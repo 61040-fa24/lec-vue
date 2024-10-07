@@ -1,13 +1,23 @@
 <script setup  lang="ts">
   import {ref, defineProps, defineEmits} from 'vue';
+  import {useCartoonStore} from '@/stores/cartoonStore';
 
-  const props = defineProps(['yay', 'nay']);
+  const props = defineProps(['title']);
+
+  const cartoonStore = useCartoonStore();
+  const cartoons = cartoonStore.cartoons;
+  const toon = cartoons.find(c => c.title === props.title);
 </script>
 
 <template>
   <p>
-    <button>🥳 ({{ props.yay }})</button>
-    <button>🤢 ({{ props.nay }})</button>
+    <button v-on:click="cartoonStore.voteYay(toon.title)">
+      🥳 ({{ toon.votes.yay }})
+    </button>
+
+    <button v-on:click="cartoonStore.voteNay(toon.title)">
+      🤢 ({{ toon.votes.nay }})
+    </button>
   </p>
 </template>
 

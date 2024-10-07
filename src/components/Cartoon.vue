@@ -1,17 +1,29 @@
 <script setup lang="ts">
   import {ref, computed, defineProps, defineEmits} from 'vue';
+  import {useCartoonStore} from '@/stores/cartoonStore';
   import Vote from './Vote.vue';
 
-  const props = defineProps(['title', 'desc', 'votes']);
+  const props = defineProps(['title']);
 
-  const total = ref(props.votes.yay - props.votes.nay);
+  const cartoonStore = useCartoonStore();
+  const cartoons = cartoonStore.cartoons;
+  const toon = cartoons.find(c => c.title === props.title);
+
+  const total = computed(() => {
+    return toon.votes.yay - toon.votes.nay
+  });
+
+  const opacity = computed(() => {
+    return Math.max(0.1, total.value/10);
+  });
 </script>
 
 <template>
-  <div class="toon">
-    <h2>{{ props.title }} ({{ total }} points)</h2>
-    <p>{{ props.desc }}</p>
-    <Vote v-bind="props.votes" />
+  <div class="toon" v-bind:style="{opacity}">
+    <h2>{{ toon.title }} ({{ total }} points)</h2>
+    <p>{{ toon.desc }}</p>
+
+    <Vote v-bind:title="toon.title" />
   </div>
 </template>
 

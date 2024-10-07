@@ -1,6 +1,8 @@
 <script setup lang="ts">
   import {ref, computed} from 'vue';
+  import {useCartoonStore} from '@/stores/cartoonStore';
   import Header from '@/components/Header.vue';
+  import Cartoon from '@/components/Cartoon.vue';
 
   const message = ref('Hello, 6.1040 Fall 2024!');
   console.log(message.value);
@@ -54,37 +56,41 @@
   // 
   // END CODE BLOCK B
 
-  // Imagine this is some data I fetched from my backend REST API
-  const cartoons = ref([
-    {
-      title: "ThunderCats",
-      desc: "ThunderCats is an American media franchise, featuring a fictional group of cat-like humanoid aliens.",
-      votes: {yay: 7, nay: 3}
-    },
-    {
-      title: "Captain Planet",
-      desc: "Our world is in peril. Gaia, the spirit of the Earth, can no longer stand the terrible destruction plaguing our planet. She sends five magic rings to five special young people.",
-      votes: {yay: 8, nay: 2}
-    },
-    {
-      title: "Top Cat",
-      desc: "The title character is the leader of a gang of Manhattan alley cats who constantly hatch get-rich-quick schemes through scams, but most of them usually backfire.",
-      votes: {yay: 1, nay: 9}
-    },
-    {
-      title: "Dexter's Labratory",
-      desc: "The series follows Dexter, an enthusiastic boy-genius with a hidden science laboratory in his room full of inventions, which he keeps secret from his clueless parents.",
-      votes: {yay: 6, nay: 4}
-    }
-  ]);
+  const cartoonStore = useCartoonStore();
+  const cartoons = cartoonStore.cartoons;
+
+  const topToon = computed(() => {
+    const sortedToons = cartoons.toSorted((a, b) => {
+      const aTotal = a.votes.yay - a.votes.nay;
+      const bTotal = b.votes.yay - b.votes.nay;
+
+      return bTotal - aTotal;
+    });
+
+    return sortedToons[0];
+  });
 </script>
 
 <template>  
-  <Header />
+  <Header>
+    <template v-slot:logo>
+      <h1>Logo!!</h1>
+    </template>
+
+    <template v-slot:subtitle>
+      <ul>
+        <li>This is my homepage!</li>
+      </ul>
+    </template>
+  </Header>
 
   <h1>
-    {{ message }}
+    The Top voted Cartoon is: {{topToon.title}}
   </h1>
+
+  <Cartoon v-for="toon in cartoons"
+    v-bind:title="toon.title"
+    v-bind:key="toon.title" />
 
   <h2>Two-way Data Bind</h2>
 
