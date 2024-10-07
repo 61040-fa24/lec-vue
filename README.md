@@ -1,6 +1,6 @@
 # 61040-fa24-lec-vue
 
-This repo contains the starter code for our Vue lectures on Wed Oct 2 and Mon Oct 7.
+This repo contains the starter code for our Vue lectures on Wed Oct 2 (on the [`main` branch](https://github.com/61040-fa24/lec-vue/tree/main) and [PR#1](https://github.com/61040-fa24/lec-vue/pull/1)) and Mon Oct 7 (on the [`main2` branch](https://github.com/61040-fa24/lec-vue/tree/main2) and [PR#2](https://github.com/61040-fa24/lec-vue/pull/2)).
 
 You can see the state of our code at the end of lecture on Wed Oct 2 in the [corresponding branch](https://github.com/61040-fa24/lec-vue/tree/oct2), and the [associated PR](https://github.com/61040-fa24/lec-vue/pull/1/files) gives you a diff.
 
