@@ -2,6 +2,10 @@
 
 This repo contains the starter code for our Vue lectures on Wed Oct 2 and Mon Oct 7.
 
+The first lecture starts in the [`main` branch](https://github.com/61040-fa24/lec-vue/tree/main) and ends in the [`oct2` branch](https://github.com/61040-fa24/lec-vue/tree/oct2) (you can see the [associated PR](https://github.com/61040-fa24/lec-vue/pull/1/files) for a diff).
+
+The first lecture starts in the [`main2` branch](https://github.com/61040-fa24/lec-vue/tree/main2) and ends in the [`oct7` branch](https://github.com/61040-fa24/lec-vue/tree/oct7) (you can see the [associated PR](https://github.com/61040-fa24/lec-vue/pull/2/files) for a diff).
+
 ## Recommended IDE Setup
 
 [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).

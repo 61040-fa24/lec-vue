@@ -1,10 +1,9 @@
 <script setup lang="ts">
   import {ref, computed} from 'vue';
-  import Header from './components/Header.vue';
-  import Counter from './components/Counter.vue';
+  import Header from '@/components/Header.vue';
 
   const message = ref('Hello, 6.1040 Fall 2024!');
-   console.log(message.value);
+  console.log(message.value);
 
   // prev did not work in class because I had an older version of
   // vue installed. prev is supported for Vue v3.4 and above 
@@ -56,48 +55,57 @@
   // END CODE BLOCK B
 
   // Imagine this is some data I fetched from my backend REST API
-  const counters = ref([
-    {name: 'Thundercats!', val: -5},
-    {name: 'Dexter', val: 7},
-    {name: 'Johnny Bravo'},
-    {name: 'Birdman'}
+  const cartoons = ref([
+    {
+      title: "ThunderCats",
+      desc: "ThunderCats is an American media franchise, featuring a fictional group of cat-like humanoid aliens.",
+      votes: {yay: 7, nay: 3}
+    },
+    {
+      title: "Captain Planet",
+      desc: "Our world is in peril. Gaia, the spirit of the Earth, can no longer stand the terrible destruction plaguing our planet. She sends five magic rings to five special young people.",
+      votes: {yay: 8, nay: 2}
+    },
+    {
+      title: "Top Cat",
+      desc: "The title character is the leader of a gang of Manhattan alley cats who constantly hatch get-rich-quick schemes through scams, but most of them usually backfire.",
+      votes: {yay: 1, nay: 9}
+    },
+    {
+      title: "Dexter's Labratory",
+      desc: "The series follows Dexter, an enthusiastic boy-genius with a hidden science laboratory in his room full of inventions, which he keeps secret from his clueless parents.",
+      votes: {yay: 6, nay: 4}
+    }
   ]);
-
-  const msgColor = ref('black');
-  function onIncr(foo, bar) {
-    message.value = `Incremented ${foo}: ${bar}`;
-    msgColor.value = 'forestgreen';
-  }
-
-  function onDecr(name, count) {
-    message.value = `Decremented ${name}: ${count}`;
-    msgColor.value = 'orangered';
-  }
 </script>
 
 <template>  
   <Header />
 
-  <h1 v-bind:style="{color: msgColor}">
+  <h1>
     {{ message }}
   </h1>
 
-  <Counter v-for="c in counters"
-    v-bind:name="c.name"
-    v-bind:init="c.val"
-    v-on:incr="onIncr"
-    v-on:decr="onDecr" />
+  <h2>Two-way Data Bind</h2>
 
-  <h2>Automatic vs. Manual Updates</h2>
+  <ol>
+    <li>Changing a reactive variable (e.g., in JavaScript/TypeScript) automatically re-renders the DOM</li>
+    <li>Manipulating a DOM element (e.g., a textbox/slider/etc.) automatically updates a reactive variable</li>
+  </ol>
 
-  <div v-bind:style="{background: rgb, color: 'white'}">
-    <p v-for="c in colors">
-      <input type="range" min="0" max="255" step="1" 
-        v-model="c.value"> {{ c.value }}
-    </p>
+  <p>
+    1: <input type="text" 
+          v-bind:value="message" />
+  </p>
 
-    <button v-on:click="setColor">Set Color</button>
-  </div>
+  <p>
+    2: <input type="text" 
+          v-on:input="event => message = event.target.value" />
+  </p>
+
+  <p>
+    1 & 2: <input type="text" v-model="message" />
+  </p>
 
   <h2>Computed Properties vs. Function Calls</h2>
 
@@ -123,26 +131,16 @@
     it will produce more efficient and optimized re-rendering.
   </p>
 
-  <h2>Two-way Data Bind</h2>
+  <h2>Automatic vs. Manual Updates</h2>
 
-  <ol>
-    <li>Changing a reactive variable (e.g., in JavaScript/TypeScript) automatically re-renders the DOM</li>
-    <li>Manipulating a DOM element (e.g., a textbox/slider/etc.) automatically updates a reactive variable</li>
-  </ol>
+  <div v-bind:style="{background: rgb, color: 'white'}">
+    <p v-for="c in colors">
+      <input type="range" min="0" max="255" step="1" 
+        v-model="c.value"> {{ c.value }}
+    </p>
 
-  <p>
-    1: <input type="text" 
-          v-bind:value="message" />
-  </p>
-
-  <p>
-    2: <input type="text" 
-          v-on:input="event => message = event.target.value" />
-  </p>
-
-  <p>
-    1 & 2: <input type="text" v-model="message" />
-  </p>
+    <button v-on:click="setColor">Set Color</button>
+  </div>
 
 </template>
 
